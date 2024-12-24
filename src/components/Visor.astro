@@ -3,14 +3,34 @@ import { SpotyVisor } from "./SpotyVisor";
 import { getSession } from "auth-astro/server";
 
 const session = await getSession(Astro.request);
+console.log({ session });
+const token = "123"; // TODO: get the token
 ---
 
 <h1>Visor</h1>
-{session ? <p>Welcome {session.user?.name}</p> : <p>Not logged in</p>}
-<button id="spotify-login">Spotify Login</button>
+{
+  session ? (
+    <div class="profile">
+      <p>Welcome {session.user?.name}</p>
+      <img src={session.user?.image} />
+      <button id="logout">Logout</button>
+    </div>
+  ) : (
+    <button id="login">Spotify Login</button>
+  )
+}
 <SpotyVisor client:load />
 <script>
-  const { signIn } = await import("auth-astro/client");
-  (document.querySelector("#spotify-login") as HTMLButtonElement).onclick =
-    () => signIn("spotify");
+  const { signIn, signOut } = await import("auth-astro/client");
+  const loginButton: HTMLButtonElement | null =
+    document.querySelector("#login");
+  const logoutButton: HTMLButtonElement | null =
+    document.querySelector("#logout");
+  console.log({ loginButton, logoutButton });
+  if (loginButton) {
+    loginButton.onclick = () => signIn("spotify");
+  }
+  if (logoutButton) {
+    logoutButton.onclick = () => signOut();
+  }
 </script>
