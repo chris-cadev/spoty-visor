@@ -2,6 +2,9 @@
 
 Spoty Visor is an experimental web project that automatically plays YouTube videos for your currently playing Spotify track. Once you’re listening to a song on Spotify, Spoty Visor identifies the track and seamlessly plays a corresponding video from YouTube.
 
+![](assets/1-example-usage-20241223.gif)
+![](assets/2-example-usage-20241223.gif)
+
 ---
 
 ## Table of Contents
