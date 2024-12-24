@@ -147,7 +147,7 @@ export interface SpotifyActions {
 
 interface CurrentSong {
     type: 'track' | string,
-    song: string,
+    name: string,
     artists: {
         main: string,
         ft: null | string[]
@@ -179,7 +179,7 @@ export const getCurrentPlaying = async (token: string): Promise<CurrentSong> => 
     const [mainArtist, ...featuringArtitsts] = playing.item.artists;
     return {
         type: playing.currently_playing_type,
-        song: playing.item.name,
+        name: playing.item.name,
         artists: {
             main: mainArtist.name,
             ft: featuringArtitsts.length === 0 ? null : featuringArtitsts.map((a) => a.name),
