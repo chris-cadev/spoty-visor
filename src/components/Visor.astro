@@ -29,7 +29,6 @@ const session = (await getSession(Astro.request)) as any as Session &
     document.querySelector("#login");
   const logoutButton: HTMLButtonElement | null =
     document.querySelector("#logout");
-  console.log({ loginButton, logoutButton });
   if (loginButton) {
     loginButton.onclick = () => signIn("spotify");
   }

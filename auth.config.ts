@@ -7,6 +7,12 @@ export default defineConfig({
         Spotify({
             clientId: import.meta.env.SPOTIFY_CLIENT_ID,
             clientSecret: import.meta.env.SPOTIFY_CLIENT_SECRET,
+            authorization: {
+                url: "https://accounts.spotify.com/authorize",
+                params: {
+                    scope: 'user-read-currently-playing user-read-playback-state user-read-email'
+                }
+            }
         }),
     ],
     callbacks: {
@@ -26,10 +32,9 @@ export default defineConfig({
                 }
             }
 
-            // Check if token is expired
-            if (spotifyToken.expiresAt && Date.now() > spotifyToken.expiresAt) {
+            const isExpired = spotifyToken.expiresAt && Date.now() > spotifyToken.expiresAt
+            if (isExpired) {
                 try {
-                    // Try refreshing
                     const refreshResponse = await fetch("https://accounts.spotify.com/api/token", {
                         method: "POST",
                         headers: {
