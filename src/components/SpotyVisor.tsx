@@ -1,11 +1,13 @@
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState, type FC } from 'react'
 
-export const SpotyVisor = () => {
+interface SpotyVisorProps {
+  accessToken?: string;
+}
+
+export const SpotyVisor: FC<SpotyVisorProps> = ({ accessToken }) => {
 
   return (
-    <h1>
-      Visualizer
-    </h1>
+    !accessToken ? <div>Not able to vizualice</div> : <div>Visor</div>
   )
 }

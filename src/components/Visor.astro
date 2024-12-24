@@ -1,25 +1,28 @@
 ---
 import { SpotyVisor } from "./SpotyVisor";
 import { getSession } from "auth-astro/server";
+import { type SpotifyToken } from "@modules/auth/spotify-token";
+import type { Session } from "@auth/core/types";
 
-const session = await getSession(Astro.request);
-console.log({ session });
-const token = "123"; // TODO: get the token
+const session = (await getSession(Astro.request)) as any as Session &
+  SpotifyToken;
 ---
 
 <h1>Visor</h1>
 {
   session ? (
     <div class="profile">
+      <button id="logout">Logout</button>
+      <hr />
       <p>Welcome {session.user?.name}</p>
       <img src={session.user?.image} />
-      <button id="logout">Logout</button>
+      <hr />
     </div>
   ) : (
     <button id="login">Spotify Login</button>
   )
 }
-<SpotyVisor client:load />
+<SpotyVisor accessToken={session?.accessToken} client:load />
 <script>
   const { signIn, signOut } = await import("auth-astro/client");
   const loginButton: HTMLButtonElement | null =
