@@ -1,6 +1,6 @@
 interface ImportMetaEnv {
-    readonly spotify_client_id: string;
-    readonly spotify_client_secret: string;
+    readonly SPOTIFY_CLIENT_ID: string;
+    readonly SPOTIFY_CLIENT_SECRET: string;
 }
 
 interface ImportMeta {

@@ -1,7 +1,16 @@
 ---
 import { SpotyVisor } from "./SpotyVisor";
+import { getSession } from "auth-astro/server";
+
+const session = await getSession(Astro.request);
 ---
 
 <h1>Visor</h1>
-
+{session ? <p>Welcome {session.user?.name}</p> : <p>Not logged in</p>}
+<button id="spotify-login">Spotify Login</button>
 <SpotyVisor client:load />
+<script>
+  const { signIn } = await import("auth-astro/client");
+  (document.querySelector("#spotify-login") as HTMLButtonElement).onclick =
+    () => signIn("spotify");
+</script>
