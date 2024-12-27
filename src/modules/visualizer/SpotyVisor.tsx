@@ -16,8 +16,8 @@ export const SpotyVisor: FC<SpotyVisorProps> = ({ accessToken }) => {
     <iframe
       title={video.name}
       allow="autoplay; encrypted-media; picture-in-picture"
-      width="560"
-      height="315"
+      width="100%"
+      height="100%"
       src={`${video.url}?autoplay=1&mute=1&start=${video.start}`}
     />
   );

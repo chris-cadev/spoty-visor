@@ -1,5 +1,6 @@
 ---
 import { SpotyVisor } from "@modules/visualizer/SpotyVisor";
+import ProfilePill from "@modules/auth/ProfilePill.astro";
 import { getSession } from "auth-astro/server";
 import { type SpotifyToken } from "@modules/auth/spotify-token";
 import type { Session } from "@auth/core/types";
@@ -8,21 +9,42 @@ const session = (await getSession(Astro.request)) as any as Session &
   SpotifyToken;
 ---
 
-<h1>Visor</h1>
-{
-  session ? (
-    <div class="profile">
-      <button id="logout">Logout</button>
-      <hr />
-      <p>Welcome {session.user?.name}</p>
-      <img src={session.user?.image} />
-      <hr />
-    </div>
-  ) : (
-    <button id="login">Spotify Login</button>
-  )
-}
-<SpotyVisor accessToken={session?.accessToken} client:load />
+<style>
+  body {
+    font-family: "Arial";
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px;
+  }
+  h1 {
+    margin: 0;
+    padding: 0;
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+  }
+  iframe {
+    width: 100%;
+  }
+</style>
+
+<header>
+  <h1>Visor</h1>
+  {
+    session ? (
+      <div class="actions">
+        <ProfilePill user={session.user} />
+        <button id="logout">Logout</button>
+      </div>
+    ) : (
+      <button id="login">Spotify Login</button>
+    )
+  }
+</header>
 <script>
   const { signIn, signOut } = await import("auth-astro/client");
   const loginButton: HTMLButtonElement | null =
@@ -36,3 +58,4 @@ const session = (await getSession(Astro.request)) as any as Session &
     logoutButton.onclick = () => signOut();
   }
 </script>
+<SpotyVisor accessToken={session?.accessToken} client:load />

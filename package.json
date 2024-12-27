@@ -22,5 +22,8 @@
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2"
+  },
+  "resolutions": {
+    "styled-components": "^5"
   }
 }
