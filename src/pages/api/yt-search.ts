@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { exec } from "@api/common/exec";
+import { exec } from "@modules/common/exec";
 
 // REF: https://stackoverflow.com/a/77233737
 const SEARCH_FLAGS = [

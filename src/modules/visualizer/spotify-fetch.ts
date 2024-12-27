@@ -145,7 +145,8 @@ export interface SpotifyActions {
     transferring_playback: boolean;
 }
 
-interface CurrentSong {
+export interface CurrentSong {
+    id: string,
     type: 'track' | string,
     name: string,
     artists: {
@@ -178,6 +179,7 @@ export const getCurrentPlaying = async (token: string): Promise<CurrentSong> => 
     }
     const [mainArtist, ...featuringArtitsts] = playing.item.artists;
     return {
+        id: playing.item.id,
         type: playing.currently_playing_type,
         name: playing.item.name,
         artists: {
