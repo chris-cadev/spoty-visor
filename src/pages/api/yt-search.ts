@@ -36,6 +36,7 @@ export const GET: APIRoute = async ({ request }) => {
     }
     const results = await searchVideos(query, count ?? '3');
     const youtubeVideos = results.map<{ url: string, name: string, thumbnail: string }>((r: any) => ({
+        id: r.id,
         url: `https://www.youtube.com/embed/${r.id}`,
         name: r.title,
         thumbnail: r.thumbnails[r.thumbnails.length - 1].url,
